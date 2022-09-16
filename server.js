@@ -32,7 +32,9 @@ server.get('/study', (req, res, next) => {
 
     let student = {
         id : 0,
-        name : "손님"
+        name : "손님",
+        age : 0 + "세"
+        
     }
 
     if(req.query.id !== null && req.query.id !== undefined){
@@ -40,6 +42,9 @@ server.get('/study', (req, res, next) => {
     }
     if(req.query.name !== null && req.query.name !== undefined){
         student.name = req.query.name;
+    }
+    if(req.query.age !== null && req.query.age !== undefined){
+        student.age = req.query.age;
     }
   
     console.log(student);
@@ -54,12 +59,17 @@ server.get('/99dan',  (req, res, next) => {
 
     let gugudan = {
         primary : 2,
+        primary2 : 3,
         length : 9
     }
 
     if(req.query.primary !== null && req.query.primary !== undefined){
         gugudan.primary = req.query.primary;
     }
+    if(req.query.primary2 !== null && req.query.primary2 !== undefined){
+        gugudan.primary2 = req.query.primary2;
+    }
+
   
     res.render("99dan.html", gugudan);
 });
