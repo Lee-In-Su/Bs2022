@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+    <body>
+
+<span>현재온도</span> <span id="hum_span"></span> <br />
+<span>현재습도 </span> <span  id="temp_span"></span> <br />
+<span>현재산소농도 </span> <span  id="oxy_span"></span> <br />
+
+    <script>
+        $(document).ready(function() {
+            const testFunc = function(a,b) {
+             console.log(a,b);
+                $.ajax({
+                    url: "/getData", // 서버 URL 주소
+                    data: { name: "홍길동" },  // 서버로 보낼 데이터
+                    method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+                    dataType: "json" // 데이터 타입
+                }).done(function(json) {
+                    $("#hum_span").html(json.hum);
+                    $("#temp_span").html(json.temp);
+                    $("#oxy_span").html(json.oxy);
+                })
+            }
+
+            const intervalId = setInterval(
+                testFunc,
+                1000,
+                "안녕하세요",
+                "입니다" + new Date()
+            );
+            testFunc();
+        });
+    </script>
+
+    
+</body>
+</html>

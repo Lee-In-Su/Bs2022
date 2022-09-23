@@ -68,10 +68,53 @@ server.get('/99dan',  (req, res, next) => {
         gugudan.primary2 = parseInt(gugudan.primary) + 1;
         // gugudan.primary2 = gugudan.primary--;
     }
-    
-  
-  
     res.render("99dan.html", gugudan);
 });
+    
+//recieve
+server.post('/recvData', (req, res, next) => {
+    let sensorData = {
+        hum : 0,
+        temp : 0,
+        oxy : 0
+    }
+    
+    if(req.body.hum !== null && req.body.hum !== undefined){
+        sensorData.hum = req.body.hum;
+        sensorData.hum = parseInt(sensorData.hum);
+    } 
+    if(req.body.temp !== null && req.body.temp !== undefined){
+        sensorData.temp = req.body.temp;   
+        sensorData.temp = parseInt(sensorData.temp);   
+    }
+    if(req.body.oxy !== null && req.body.oxy !== undefined){
+        sensorData.oxy = req.body.oxy;   
+        sensorData.oxy = parseInt(sensorData.oxy);   
+    }
+    console.log(req.body.hum);
+    console.log(req.body.temp);
+    console.log(req.body.oxy);
+    console.log('매 분마다 작업 실행' + sensorData.hum + "|" + sensorData.temp + "|" + sensorData.oxy);
+    res.send("ACK ");
+});
 
+
+//getData
+server.get('/getData', (req, res, next) => {
+    let sensorData = {
+        hum : 0,
+        temp : 0,
+        oxy : 0
+    }
+    sensorData.hum = Math.floor(Math.random() * 60);
+    sensorData.temp = Math.floor(Math.random() * 100);
+    sensorData.oxy = Math.floor(Math.random() * 50);
+
+    res.send(sensorData);
+});
+
+//getData html
+server.get("/view", (req, res, next) => {
+    res.render("getData.html");
+});
 module.exports = server;
