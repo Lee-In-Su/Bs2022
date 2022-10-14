@@ -74,27 +74,22 @@ server.get('/99dan',  (req, res, next) => {
 //recieve
 server.post('/recvData', (req, res, next) => {
     let sensorData = {
-        hum : 0,
-        temp : 0,
-        oxy : 0
+        s_idx : 0,
+        sd_value : 0
     }
     
-    if(req.body.hum !== null && req.body.hum !== undefined){
-        sensorData.hum = req.body.hum;
-        sensorData.hum = parseInt(sensorData.hum);
+    if(req.body.s_idx !== null && req.body.s_idx !== undefined){
+        sensorData.s_idx = req.body.s_idx;
+        sensorData.s_idx = parseInt(sensorData.s_idx);
     } 
-    if(req.body.temp !== null && req.body.temp !== undefined){
-        sensorData.temp = req.body.temp;   
-        sensorData.temp = parseInt(sensorData.temp);   
+    if(req.body.sd_value !== null && req.body.sd_value !== undefined){
+        sensorData.sd_value = req.body.sd_value;   
+        sensorData.sd_value = parseInt(sensorData.sd_value);   
     }
-    if(req.body.oxy !== null && req.body.oxy !== undefined){
-        sensorData.oxy = req.body.oxy;   
-        sensorData.oxy = parseInt(sensorData.oxy);   
-    }
-    console.log(req.body.hum);
-    console.log(req.body.temp);
-    console.log(req.body.oxy);
-    console.log('매 분마다 작업 실행' + sensorData.hum + "|" + sensorData.temp + "|" + sensorData.oxy);
+
+    console.log(req.body.s_idx);
+    console.log(req.body.sd_value);
+    console.log('매 분마다 작업 실행');
     res.send("ACK ");
 });
 

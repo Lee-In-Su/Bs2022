@@ -12,22 +12,19 @@ const serverPort = 80;
 cron.schedule('*/2 * * * * *', function () {
     let nowTime = new Date();
     
-     let hum = 4;
-     let temp = 8;
-     let oxy = 12;
+     let s_idx = 1;
+     let sd_value = 4;
+     
      // (6) 0 <= random <= 100
-     hum = Math.floor(Math.random() * 60);
-     temp = Math.floor(Math.random() * 100);
-     oxy = Math.floor(Math.random() * 50);
+     sd_value = Math.floor(Math.random() * 60);
    
    
      axios({
        url: 'http://localhost/recvData', // 통신할 웹문서
        method: 'post', // 통신할 방식 get/post
        data: { // 인자로 보낼 데이터
-         hum: hum,
-         temp : temp,
-         oxy : oxy
+        s_idx: s_idx,
+        sd_value : sd_value
        }
      });
    });
