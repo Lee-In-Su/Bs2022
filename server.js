@@ -5,6 +5,15 @@
 var express             = require('express');
 var path                = require('path');
 var server              = express();
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',    // 호스트 주소
+  user     : 'root',           // mysql user
+  password : '1234',       // mysql password
+  database : 'lws'         // mysql 데이터베이스
+});
+connection.connect();
+
 
 /************* view engine setup **************/
 server.set('views', path.join(__dirname, '/web'));
@@ -86,6 +95,18 @@ server.post('/recvData', (req, res, next) => {
         sensorData.sd_value = req.body.sd_value;   
         sensorData.sd_value = parseInt(sensorData.sd_value);   
     }
+
+    var query_ = " insert into lws.sensor_data_tbl \n";
+    query_ += " (s_idx , sd_value , ins_date, upd_date) value \n";
+    query_ += " (" + sensorData.s_idx + " , " + sensorData.sd_value + " , now(), now()) \n";
+
+    console.log(query_);
+
+    connection.query(query_, function (error, results, fields) {
+        if(error) throw error;
+       console.log('The solution is: ', error);
+       console.log('The solution is: ', results);
+    });
 
     console.log(req.body.s_idx);
     console.log(req.body.sd_value);
