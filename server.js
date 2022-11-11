@@ -84,7 +84,7 @@ server.get('/99dan',  (req, res, next) => {
 server.post('/recvData', (req, res, next) => {
     let sensorData = {
         s_idx : 0,
-        sd_value : 0
+        sd_value : 0,
     }
     
     if(req.body.s_idx !== null && req.body.s_idx !== undefined){
@@ -96,9 +96,9 @@ server.post('/recvData', (req, res, next) => {
         sensorData.sd_value = parseInt(sensorData.sd_value);   
     }
 
-    var query_ = " insert into lws.sensor_data_tbl \n";
-    query_ += " (s_idx , sd_value , ins_date, upd_date) value \n";
-    query_ += " (" + sensorData.s_idx + " , " + sensorData.sd_value + " , now(), now()) \n";
+    var query_ = " insert into lws.sensor_data_tbl ";
+    query_ += " (s_idx , sd_value , ins_date, upd_date) values";
+    query_ += " (" + sensorData.s_idx + " , " + sensorData.sd_value + " , now(), now())";
 
     console.log(query_);
 
@@ -112,6 +112,77 @@ server.post('/recvData', (req, res, next) => {
     console.log(req.body.sd_value);
     console.log('매 분마다 작업 실행');
     res.send("ACK ");
+});
+
+//Useradd
+server.post('/Useradd', (req, res, next) => {
+    let UseraddData = {
+        u_id : 'lim',
+        u_pass : '0000',
+    }
+
+    if(req.body.u_id !== null && req.body.u_id !== undefined){
+        UseraddData.u_id = req.body.u_id;   
+    }
+
+    if(req.body.u_pass !== null && req.body.u_pass !== undefined){
+        UseraddData.u_pass = req.body.u_pass;    
+    }   
+
+    var query_ = "insert into lws.user_tbl ";
+    query_ += "(u_id, u_pass) values";
+    query_ += " ('" + UseraddData.u_id + "' , '" + UseraddData.u_pass + "')";
+
+    console.log(query_);
+
+    connection.query(query_, function (error, results, fields) {
+
+        console.log(error);
+
+        if(error) {
+        console.log('error');
+        res.send("등록실패");
+        //throw error;
+        } 
+
+        else{
+        res.send("등록완료");
+        }
+        console.log('The solution is: ', results);
+    });
+});
+
+//User
+server.post('/User', (req, res, next) => {
+    let userData = {
+        u_id : 1,
+    }
+
+    if(req.body.u_id !== null && req.body.u_id !== undefined){
+        userData.u_id = req.body.u_id;   
+    }
+
+    var query_ = "select u_idx ";
+    query_ += "from lws.user_tbl ";
+    query_ += "where u_id ='" + userData.u_id + "' ";
+
+    console.log(query_);
+
+    connection.query(query_, function (error, results, fields) {
+
+        console.log(error);
+
+        if(error) {
+        console.log('error');
+        res.send("등록실패");
+        //throw error;
+        } 
+
+        else{
+        res.send("등록완료");
+        }
+        console.log('The solution is: ', results);
+    });
 });
 
 

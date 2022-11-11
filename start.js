@@ -19,14 +19,14 @@ cron.schedule('*/2 * * * * *', function () {
      sd_value = Math.floor(Math.random() * 60);
    
    
-     axios({
+/*      axios({
        url: 'http://localhost/recvData', // 통신할 웹문서
        method: 'post', // 통신할 방식 get/post
        data: { // 인자로 보낼 데이터
         s_idx: s_idx,
         sd_value : sd_value
        }
-     });
+     }); */
    });
 
 /************* Routing **************/
