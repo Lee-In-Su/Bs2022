@@ -40,8 +40,8 @@ server.get('/study', (req, res, next) => {
     // http://localhost/study?id=1234&name=백석대&age=0
 
     let student = {
-        id : 20173182,
-        name : "임우섭",
+        id : 20163019,
+        name : "이인수",
         age : 26
     }
 
@@ -115,10 +115,10 @@ server.post('/recvData', (req, res, next) => {
 });
 
 //Useradd
-server.post('/Useradd', (req, res, next) => {
+server.post('/userAdd', (req, res, next) => {
     let UseraddData = {
-        u_id : 'lim',
-        u_pass : '0000',
+        u_id : 'lis',
+        u_pass : '1234',
     }
 
     if(req.body.u_id !== null && req.body.u_id !== undefined){
